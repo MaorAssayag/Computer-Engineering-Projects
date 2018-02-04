@@ -1,0 +1,20 @@
+
+# Digital Computer Structure for Computer Engineering
+
+# Subjects :
+* Computer Structure: the digital computer and its main components, different bus configurations
+and bus arbitration methods.
+* Microprocessor Architecture: Von-Neuman, Harvard, programming model and CPU model, 3-bus architecture, pipeline architecture, 80x86 arcitecture, TI/ARM
+microcontroller architecture.
+* Memories: memory hierarchy and memory management, cache and interleaving memory, cache coherency, protection mode, virtual memory and protection in
+multitasking system, segmentation and paging. 
+* I/O Organization: connectivity of IO devices, IO processor, and host communication. Interrupts: interrupts techniques, event-driven real-time
+systems, interrupt controller, cascade mode and dynamic programming.
+* DMA: operation modes and techniques, DMA controller, and IO channel. Communication: introduction, serial synchronous and
+asynchronous communication, protocols and introduction to LAN, modem interface, USART 8250
+controller, RS232, RS485, I2C and SPI communication standards. 
+* Projects: writing real time device drivers, and design of microcomputers system.
+
+# Final Projects 
+* Autonomous Vehicle Project in C
+* Communication Terminal Application in C & C#
