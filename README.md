@@ -16,5 +16,5 @@ controller, RS232, RS485, I2C and SPI communication standards.
 * Projects: writing real time device drivers, and design of microcomputers system.
 
 # Final Projects 
-* Autonomous Vehicle Project in C
-* Communication Terminal Application in C & C#
+* <a href="https://github.com/MaorAssayag/Digital-Computer-Structure-projects/tree/master/Autonomous%20Vehicle%20Project">Autonomous Vehicle Project in C</a>
+* <a href="https://github.com/MaorAssayag/Digital-Computer-Structure-projects/tree/master/Communication%20Terminal%20Application">Communication Terminal Application in C & C#</a>
