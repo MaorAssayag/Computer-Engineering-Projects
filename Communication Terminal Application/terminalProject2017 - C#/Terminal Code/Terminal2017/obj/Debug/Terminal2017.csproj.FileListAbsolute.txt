@@ -1,0 +1,28 @@
+C:\Users\MaorAssayag18\Desktop\פרוייקט תקשורת\terminalProject2017\Terminal2017\Terminal2017\bin\Debug\Terminal2017.exe.config
+C:\Users\MaorAssayag18\Desktop\פרוייקט תקשורת\terminalProject2017\Terminal2017\Terminal2017\bin\Debug\Terminal2017.exe
+C:\Users\MaorAssayag18\Desktop\פרוייקט תקשורת\terminalProject2017\Terminal2017\Terminal2017\bin\Debug\Terminal2017.pdb
+C:\Users\MaorAssayag18\Desktop\פרוייקט תקשורת\terminalProject2017\Terminal2017\Terminal2017\obj\Debug\Terminal.Form1.resources
+C:\Users\MaorAssayag18\Desktop\פרוייקט תקשורת\terminalProject2017\Terminal2017\Terminal2017\obj\Debug\Terminal2017.Properties.Resources.resources
+C:\Users\MaorAssayag18\Desktop\פרוייקט תקשורת\terminalProject2017\Terminal2017\Terminal2017\obj\Debug\Terminal2017.csproj.GenerateResource.Cache
+C:\Users\MaorAssayag18\Desktop\פרוייקט תקשורת\terminalProject2017\Terminal2017\Terminal2017\obj\Debug\Terminal2017.exe
+C:\Users\MaorAssayag18\Desktop\פרוייקט תקשורת\terminalProject2017\Terminal2017\Terminal2017\obj\Debug\Terminal2017.pdb
+C:\Users\MaorAssayag18\Desktop\פרוייקט תקשורת\terminalProject2017\Terminal2017\Terminal2017\obj\Debug\Terminal2017.csprojResolveAssemblyReference.cache
+C:\Users\USER\Desktop\terminalProject2017 - C#\Terminal2017\Terminal2017\bin\Debug\LightTerminal.exe.config
+C:\Users\USER\Desktop\terminalProject2017 - C#\Terminal2017\Terminal2017\bin\Debug\LightTerminal.exe
+C:\Users\USER\Desktop\terminalProject2017 - C#\Terminal2017\Terminal2017\bin\Debug\LightTerminal.pdb
+C:\Users\USER\Desktop\terminalProject2017 - C#\Terminal2017\Terminal2017\obj\Debug\Terminal.LightTerminal.resources
+C:\Users\USER\Desktop\terminalProject2017 - C#\Terminal2017\Terminal2017\obj\Debug\Terminal2017.Properties.Resources.resources
+C:\Users\USER\Desktop\terminalProject2017 - C#\Terminal2017\Terminal2017\obj\Debug\Terminal2017.csproj.GenerateResource.Cache
+C:\Users\USER\Desktop\terminalProject2017 - C#\Terminal2017\Terminal2017\obj\Debug\Terminal2017.csproj.CoreCompileInputs.cache
+C:\Users\USER\Desktop\terminalProject2017 - C#\Terminal2017\Terminal2017\obj\Debug\LightTerminal.exe
+C:\Users\USER\Desktop\terminalProject2017 - C#\Terminal2017\Terminal2017\obj\Debug\LightTerminal.pdb
+C:\Users\USER\Desktop\terminalProject2017 - C#\Terminal2017\Terminal2017\obj\Debug\Terminal2017.csprojResolveAssemblyReference.cache
+C:\Users\MaorAssayag18\Desktop\terminalProject2017 - C#\Terminal2017\bin\Debug\LightTerminal.exe.config
+C:\Users\MaorAssayag18\Desktop\terminalProject2017 - C#\Terminal2017\bin\Debug\LightTerminal.exe
+C:\Users\MaorAssayag18\Desktop\terminalProject2017 - C#\Terminal2017\bin\Debug\LightTerminal.pdb
+C:\Users\MaorAssayag18\Desktop\terminalProject2017 - C#\Terminal2017\obj\Debug\Terminal2017.csprojResolveAssemblyReference.cache
+C:\Users\MaorAssayag18\Desktop\terminalProject2017 - C#\Terminal2017\obj\Debug\Terminal.LightTerminal.resources
+C:\Users\MaorAssayag18\Desktop\terminalProject2017 - C#\Terminal2017\obj\Debug\Terminal2017.Properties.Resources.resources
+C:\Users\MaorAssayag18\Desktop\terminalProject2017 - C#\Terminal2017\obj\Debug\Terminal2017.csproj.GenerateResource.Cache
+C:\Users\MaorAssayag18\Desktop\terminalProject2017 - C#\Terminal2017\obj\Debug\LightTerminal.exe
+C:\Users\MaorAssayag18\Desktop\terminalProject2017 - C#\Terminal2017\obj\Debug\LightTerminal.pdb

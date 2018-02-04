@@ -1,0 +1,8 @@
+F:\teminal c#\Terminal\Terminal\bin\Release\Terminal.exe
+F:\teminal c#\Terminal\Terminal\bin\Release\Terminal.pdb
+F:\teminal c#\Terminal\Terminal\obj\x86\Release\Terminal.csprojResolveAssemblyReference.cache
+F:\teminal c#\Terminal\Terminal\obj\x86\Release\Terminal.Form1.resources
+F:\teminal c#\Terminal\Terminal\obj\x86\Release\Terminal.Properties.Resources.resources
+F:\teminal c#\Terminal\Terminal\obj\x86\Release\Terminal.csproj.GenerateResource.Cache
+F:\teminal c#\Terminal\Terminal\obj\x86\Release\Terminal.exe
+F:\teminal c#\Terminal\Terminal\obj\x86\Release\Terminal.pdb

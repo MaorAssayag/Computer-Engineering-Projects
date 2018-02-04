@@ -1,0 +1,36 @@
+D:\idan\TerminalVB\Terminal\Terminal\obj\x86\Debug\Terminal.Form1.resources
+D:\idan\TerminalVB\Terminal\Terminal\obj\x86\Debug\Terminal.Properties.Resources.resources
+D:\idan\TerminalVB\Terminal\Terminal\obj\x86\Debug\Terminal.csproj.GenerateResource.Cache
+D:\idan\TerminalVB\Terminal\Terminal\bin\Debug\Terminal.exe
+D:\idan\TerminalVB\Terminal\Terminal\bin\Debug\Terminal.pdb
+D:\idan\TerminalVB\Terminal\Terminal\obj\x86\Debug\Terminal.exe
+D:\idan\TerminalVB\Terminal\Terminal\obj\x86\Debug\Terminal.pdb
+D:\idan\TerminalVB\Terminal\Terminal\obj\x86\Debug\Terminal.csprojResolveAssemblyReference.cache
+C:\Users\TEMP.BGU-USERS.002\Downloads\Terminal_29-5\Terminal\Terminal\obj\x86\Debug\Terminal.exe
+C:\Users\TEMP.BGU-USERS.002\Downloads\Terminal_29-5\Terminal\Terminal\obj\x86\Debug\Terminal.pdb
+C:\Users\TEMP.BGU-USERS.002\Downloads\Terminal_29-5\Terminal\Terminal\bin\Debug\Terminal.exe
+C:\Users\TEMP.BGU-USERS.002\Downloads\Terminal_29-5\Terminal\Terminal\bin\Debug\Terminal.pdb
+C:\Users\TEMP.BGU-USERS.002\Downloads\Terminal_29-5\Terminal\Terminal\obj\x86\Debug\Terminal.csprojResolveAssemblyReference.cache
+C:\Users\TEMP.BGU-USERS.002\Downloads\Terminal_29-5\Terminal\Terminal\obj\x86\Debug\Terminal.Form1.resources
+C:\Users\TEMP.BGU-USERS.002\Downloads\Terminal_29-5\Terminal\Terminal\obj\x86\Debug\Terminal.Properties.Resources.resources
+C:\Users\TEMP.BGU-USERS.002\Downloads\Terminal_29-5\Terminal\Terminal\obj\x86\Debug\Terminal.csproj.GenerateResource.Cache
+D:\project\Terminal_VB\Terminal\Terminal\obj\x86\Debug\Terminal.exe
+D:\project\Terminal_VB\Terminal\Terminal\obj\x86\Debug\Terminal.pdb
+D:\project\Terminal_VB\Terminal\Terminal\bin\Debug\Terminal.exe
+D:\project\Terminal_VB\Terminal\Terminal\bin\Debug\Terminal.pdb
+D:\project\Terminal_VB\Terminal\Terminal\obj\x86\Debug\Terminal.csprojResolveAssemblyReference.cache
+D:\project\Terminal_VB\Terminal\Terminal\obj\x86\Debug\Terminal.Form1.resources
+D:\project\Terminal_VB\Terminal\Terminal\obj\x86\Debug\Terminal.Properties.Resources.resources
+D:\project\Terminal_VB\Terminal\Terminal\obj\x86\Debug\Terminal.csproj.GenerateResource.Cache
+D:\Terminal_VB\Terminal\Terminal\obj\x86\Debug\Terminal.exe
+D:\Terminal_VB\Terminal\Terminal\obj\x86\Debug\Terminal.pdb
+F:\Terminal_VB\Terminal\Terminal\obj\x86\Debug\Terminal.exe
+F:\Terminal_VB\Terminal\Terminal\obj\x86\Debug\Terminal.pdb
+F:\Terminal_VB\Terminal\Terminal\obj\x86\Debug\Terminal.csprojResolveAssemblyReference.cache
+F:\Terminal_VB\Terminal\Terminal\obj\x86\Debug\Terminal.Form1.resources
+F:\Terminal_VB\Terminal\Terminal\obj\x86\Debug\Terminal.Properties.Resources.resources
+F:\Terminal_VB\Terminal\Terminal\obj\x86\Debug\Terminal.csproj.GenerateResource.Cache
+F:\Terminal_VB\Terminal\Terminal\bin\Debug\Terminal.exe
+F:\Terminal_VB\Terminal\Terminal\bin\Debug\Terminal.pdb
+F:\teminal c#\Terminal\Terminal\obj\x86\Debug\Terminal.exe
+F:\teminal c#\Terminal\Terminal\obj\x86\Debug\Terminal.pdb
