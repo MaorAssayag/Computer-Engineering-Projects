@@ -1,0 +1,187 @@
+#include  <msp430xG46x.h>
+; Lcd_Data MACRO
+Lcd_Data    MACRO Char
+            Delay #0005000
+            bic.b #0xff,&P5OUT
+            bis.b #0x20,&P3OUT
+            mov.b Char,&P5OUT
+            call  #Lcd_strobe
+            bic.b #0x20,&P3OUT
+            ENDM
+            
+;Delay  MACRO
+Delay      MACRO  Num
+           LOCAL  L1
+           mov.w  Num,R13
+L1         dec    R13
+           jnz    L1
+           ENDM
+           
+;StepNum  MACRO
+StepNum    MACRO  Num
+           LOCAL  L1
+           mov.w  Num,R14
+L1         call   #Step
+           dec    R14
+           jnz    L1
+           ENDM 
+           
+;BackStepNum  MACRO
+BackStepNum    MACRO  Num
+           LOCAL  L1
+           mov.w  Num,R14
+L1         call   #BackStep
+           dec    R14
+           jnz    L1
+           ENDM 
+           
+;NumOfSteps  MACRO      
+NumOfSteps MACRO  Num ;get R4*10, Return the numOfSteps in R13
+           LOCAL  L1
+           mov.w  #7,R11
+           mov.w  Num,R14           
+L1         add.w #1,R13
+           sub.w R11,R14
+           cmp.w #0,R14
+           jge  L1
+           ENDM  
+           
+;===============================================================================              
+; Function 1
+;===============================================================================    
+            MODULE    Function1
+            PUBLIC    Function1
+            EXTERN Lcd_strobe
+            EXTERN FuncPrint
+            RSEG CODE               
+Function1  
+           mov #1,R10
+           mov #3,R12
+           call #FuncPrint          
+           ret   
+;===============================================================================              
+; Multi - for angle calculate 
+;===============================================================================
+            PUBLIC    Multi
+            RSEG CODE
+            
+Multi      cmp.b #3,R12
+           jnz  second
+           mov.w  #100,R14
+           JMP    count          
+second     cmp.b #2,R12
+           jnz  third
+           mov.w  #10,R14           
+           JMP    count           
+third      cmp.b #1,R12
+           jnz  exitMulti
+           mov.w  #1,R14
+           JMP    count          
+count      add  R5,R4
+           dec  R14
+           jnz  count
+           dec    R12
+exitMulti  ret           
+;===============================================================================              
+; CheckValid - for angle calculate 
+;===============================================================================           
+            PUBLIC    CheckValid
+            RSEG CODE
+
+CheckValid       cmp.b  #'A',R5
+                 jge NotValid
+                 mov #1,R11
+                 jmp   exitCheckValid            
+NotValid         mov.w #0,R11
+exitCheckValid  Lcd_Data R5
+                ret                  
+;===============================================================================              
+; CheckAngle - for angle calculate 
+;===============================================================================          
+            PUBLIC    CheckAngle
+            RSEG CODE
+
+CheckAngle 
+             cmp.w  #361,R4
+             jge NotValid2
+             mov #1,R11
+             jmp  exitCheckAngle           
+NotValid2    mov.w #0,R11
+
+exitCheckAngle ret                     
+;===============================================================================              
+; Step in positive direction
+;==============================================================================
+Step      
+           mov.b #0x01,&P9OUT 
+           Delay  #2000
+           mov.b #0x08,&P9OUT 
+           Delay  #2000
+           mov.b #0x04,&P9OUT 
+           Delay  #2000
+           mov.b #0x02,&P9OUT 
+           Delay  #2000
+           ret 
+
+;===============================================================================              
+; BackStep in positive direction
+;==============================================================================
+BackStep      
+           mov.b #0x08,&P9OUT 
+           Delay  #1500
+           mov.b #0x01,&P9OUT 
+           Delay  #1500
+           mov.b #0x02,&P9OUT 
+           Delay  #1500
+           mov.b #0x04,&P9OUT 
+           Delay  #1500
+           ret 
+;===============================================================================              
+; BackSpin
+;===============================================================================
+            PUBLIC    BackSpin
+            RSEG      CODE
+            
+BackSpin    cmp.w #256,R9
+            jge  ClockWise            
+            BackStepNum R9
+            jmp exitBackSpin
+            
+ClockWise   mov.w #516,R13
+            sub.w R9,R13
+            sub.w #2,R13
+            jn exitBackSpin
+            StepNum R13
+            
+exitBackSpin  clr R9
+              clr R13
+              ret 
+           
+;===============================================================================              
+; Spin
+;===============================================================================
+            PUBLIC    Spin
+            RSEG CODE
+            
+Spin       clr R13           
+           call #Multi10  ;make R4*10
+           NumOfSteps R4  ;Return the num of steps in R13
+           mov.w  R13,R9
+           StepNum R13 ;spin with [R13] steps
+           ret 
+           
+;===============================================================================              
+; Multi10 - for angle calculate 
+;===============================================================================
+            PUBLIC    Multi10
+            RSEG CODE
+Multi10   mov.w  R4,R9
+          mov.w  #9,R14              
+count10   add  R9,R4
+          dec  R14
+          jnz  count10
+          ret           
+;===============================================================================
+;===============================================================================
+              ENDMOD
+              END

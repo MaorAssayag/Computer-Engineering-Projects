@@ -1,0 +1,88 @@
+
+#include  <msp430xG46x.h>
+
+;*********MACRO FUNCTIONS******************************************************
+;******************************************************************************
+;Delay  MACRO
+Delay      MACRO  Num
+           LOCAL  L1
+           mov.w  Num,R13
+L1         dec    R13
+           jnz    L1
+           ENDM                     
+;===============================================================================
+; KeyBoard - find the ascii value of the key that been pressed;
+;===============================================================================
+            MODULE    KeyBoard
+            PUBLIC    KeyBoard
+            RSEG CODE
+KeyBoard   
+            clr   R5
+            mov.b #'Z',R5 ; for comparition later on
+CheckPress  
+            
+            mov.b #0x07,&P10OUT
+            bit.b #0x80,&P10IN
+            jnz N1
+            mov.b #'F',R5
+N1          bit.b #0x40,&P10IN
+            jnz N2
+            mov.b #'E',R5
+N2          bit.b #0x20,&P10IN  
+            jnz N3
+            mov.b #'D',R5 
+N3          bit.b #0x10,&P10IN
+            jnz N4
+            mov.w #'C',R5 
+
+N4          mov.b #0x0b,&P10OUT
+            bit.b #0x80,&P10IN
+            jnz N5
+            mov.b #'B',R5
+N5          bit.b #0x40,&P10IN
+            jnz N6
+            mov.b #'9',R5
+N6          bit.b #0x20,&P10IN  
+            jnz N7
+            mov.b #'6',R5 
+N7          bit.b #0x10,&P10IN
+            jnz N8
+            mov.b #'3',R5
+        
+N8          mov.b #0x0d,&P10OUT        
+            bit.b #0x80,&P10IN
+            jnz N9
+            mov.b #'0',R5
+N9          bit.b #0x40,&P10IN
+            jnz N10
+            mov.b #'8',R5
+N10         bit.b #0x20,&P10IN  
+            jnz N11
+            mov.b #'5',R5 
+N11         bit.b #0x10,&P10IN
+            jnz N12
+            mov.b #'2',R5
+        
+N12         mov.b #0x0e,&P10OUT        
+            bit.b #0x80,&P10IN
+            jnz N13
+            mov.b #'A',R5
+N13         bit.b #0x40,&P10IN
+            jnz N14
+            mov.b #'7',R5
+N14         bit.b #0x20,&P10IN  
+            jnz N15
+            mov.b #'4',R5 
+N15         bit.b #0x10,&P10IN
+            jnz Check
+            mov.b #'1',R5
+     
+Check       cmp #'Z',R5
+            jz CheckPress
+            Delay #50000
+            Delay #50000
+            ret 
+            ENDMOD
+;===============================================================================
+;===============================================================================
+            END

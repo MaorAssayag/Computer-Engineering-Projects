@@ -1,0 +1,111 @@
+#include  <msp430xG46x.h>
+     
+ ;===============================================================================              
+;  CheckKey 
+;===============================================================================          
+            MODULE    CheckKey
+            PUBLIC    CheckKey
+            EXTERN  Function1 
+            EXTERN  Function2
+            EXTERN  Function3 
+            EXTERN  Error
+            EXTERN  MovingMenu
+            RSEG CODE         
+
+CheckKey    
+CheckA      cmp.b #'A',R5 ;A is Pressed
+            jnz  CheckB
+            add #1,R8
+            cmp.b #5,R8
+            jnz exitP2  ;update menu
+            mov #2,R8
+            jmp exitP2  ;update menu
+            
+CheckB      cmp.b #'B',R5 ;A is Pressed 
+            jnz Check1
+            sub #1,R8
+            cmp.b #2,R8
+            jge exitP2
+            mov #4,R8
+            jmp exitP2
+
+Check1      cmp.b #'1',R5 ;1 is Pressed
+            jnz  Check2
+            cmp.b #2,R8
+            jz StartF1 
+            cmp.b #4,R8
+            jz StartF1
+            call #Error
+            jmp exitP2F ;dont update the menu
+StartF1     call #Function1      ;start Function 1    
+            jmp exitP2F            
+
+Check2      cmp.b #'2',R5 ;2 is Pressed
+            jnz  Check3      ;start Function 2 
+            clr R4  ;clrz  Check3
+            cmp.b #2,R8
+            jz StartF2 
+            cmp.b #3,R8
+            jz StartF2
+            call #Error
+            jmp exitP2F ;dont update the menu
+StartF2     call #Function2
+            clr R10 ;clr the status regeister
+            jmp exitP2  
+            
+Check3      cmp.b #'3',R5 ;3 is Pressed
+            jnz  exitWithError
+            cmp.b #3,R8
+            jz StartF3 
+            cmp.b #4,R8
+            jz StartF3
+            call #Error
+            jmp exitP2F ;dont update the menu
+StartF3     call #Function3    ;start Function 3    
+            jmp exitP2F 
+                                   
+exitWithError  call #Error  
+               jmp  exitP2F
+exitP2         call #MovingMenu   
+exitP2F        ret  
+;===============================================================================              
+; CheckF1
+;===============================================================================    
+            PUBLIC    CheckF1
+            EXTERN CheckValid
+            EXTERN Multi
+            EXTERN CheckAngle
+            EXTERN Spin
+            EXTERN Error
+            EXTERN MovingMenu
+            EXTERN FuncPrint
+            RSEG CODE               
+CheckF1
+            call #CheckValid ; check if R5 is 0~9
+            bit.b #1,R11
+            jz exitFromF1
+
+            sub.w #'0',R5   ; convert ascii to binary
+            call  #Multi
+            cmp.w #0,R12  ;R12-0
+            jnz exitF1
+                          ;after the 3rd digit
+            call  #CheckAngle
+            bit.b #1,R11
+            jz exitFromF1
+            mov.w  #1,R14
+            call #FuncPrint ;print Spining
+            call #Spin    ;R4 hold the angle in binary
+            clr R4  ;clr the angle in binary
+            clr R10 ;clr the status regeister           
+            jmp exitCheckP2 
+            
+exitFromF1      clr R10                                      
+                call #Error
+                jmp exitF1
+exitCheckP2    call #MovingMenu 
+exitF1         ret 
+;===============================================================================
+;===============================================================================
+              ENDMOD
+              END

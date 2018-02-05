@@ -1,0 +1,75 @@
+#include  <msp430xG46x.h>
+;NumOfSteps  MACRO      
+NumOfSteps MACRO  Num ;get R4*10, Return the numOfSteps in R13
+           LOCAL  L1
+           mov.w  #7,R11
+           mov.w  Num,R14           
+L1         add.w #1,R13
+           sub.w R11,R14
+           cmp.w #0,R14
+           jge  L1
+           ENDM 
+           
+;===============================================================================              
+; Function 3
+;===============================================================================   
+            MODULE    Function3
+            PUBLIC    Function3
+            EXTERN FuncPrint
+            RSEG CODE  
+            
+Function3  mov #3,R10
+           call #FuncPrint 
+           clr  R15
+           bis.b #BTIE,&IE2
+           ret    
+           
+;===============================================================================              
+; AfterF3
+;===============================================================================   
+            PUBLIC    AfterF3
+            RSEG CODE  
+            
+AfterF3     bic.b #BTIE,&IE2
+            clr R10
+       
+            mov.w  #2,R14
+            call #FuncPrint ;print  Please Wait
+            
+            call #BackSpinClock
+            clr R9  ;the last spin save 6 angle in R9
+            clr R4
+            ret              
+;===============================================================================              
+; BackSpinClock
+;===============================================================================                  
+            PUBLIC    BackSpinClock
+            EXTERN BackSpin
+            EXTERN Spin
+            RSEG CODE 
+
+BackSpinClock  cmp.w  #0,R15
+               jz DontSpin
+               cmp.w  #28,R15
+               jge  LFoward
+               
+L1             mov.w  #9,R9 
+               call  #BackSpin  ;backspin get the num of steps
+               dec  R15
+               jnz  L1
+               jmp DontSpin
+               
+LFoward        mov.w  R15,R9  ;save the num of spins
+               mov.w  #57,R15
+               sub.w  R9,R15  ;R15 is now the num of 6* angles to complete 360
+               
+L2             mov.w #6,R4 
+               call  #Spin    ;spin get the num of angle
+               dec  R15
+               jnz  L2   
+               
+DontSpin       ret 
+;===============================================================================
+;===============================================================================
+              ENDMOD
+              END

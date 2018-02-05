@@ -1,0 +1,63 @@
+#include  <msp430xG46x.h>
+
+;*********MACRO FUNCTIONS******************************************************
+;******************************************************************************
+; Lcd_cmd MACRO
+Lcd_cmd   MACRO command
+          Delay #5000  ; 5msec Delay
+          mov.b command,&P5OUT
+          call #Lcd_strobe
+          ENDM  
+          
+ ;Delay  MACRO
+Delay      MACRO  Num
+           LOCAL  L1
+           mov.w  Num,R13
+L1         dec    R13
+           jnz    L1
+           ENDM             
+                     
+;===============================================================================            
+; LCD Active
+;===============================================================================
+            MODULE    ActivateLCD
+            PUBLIC    ActivateLCD
+            RSEG CODE  
+            
+ActivateLCD   mov.b #0x0F,&P10DIR       ;4 LSB OF P10 OUTPUT
+              mov.b #0x00,&P10OUT
+              bis.b #0xE0,&P3DIR        ; Set P3.5-P3.7 as Output
+              bis.b #0xff,&P5DIR        ; Set P5 as Output
+              bic.b #0xE0,&P3OUT        ; Set P3.5-P3.7 with 0v
+              Delay #15000              ; Delay of 15msec
+              mov.b #0x3F,&P5OUT
+              call  #Lcd_strobe         
+              Delay #5000               ; Delay of 5msec
+              mov.b #0x3F,&P5OUT
+              call  #Lcd_strobe
+              Delay #200                ; Delay of 200usec
+              mov.b #0x3F,&P5OUT
+              call  #Lcd_strobe
+              Lcd_cmd #0x3C
+              Lcd_cmd #0x0f
+              Lcd_cmd #0x01
+              Lcd_cmd #0x06
+              Lcd_cmd #0x80
+              Lcd_cmd #0x02
+              ret  
+;===============================================================================              
+; LCD Strobe 
+;===============================================================================
+            PUBLIC    Lcd_strobe
+            RSEG CODE
+            
+Lcd_strobe    bis.b   #0x80,&P3OUT
+              NOP
+              NOP
+              bic.b   #0x80,&P3OUT
+              ret      
+              
+              ENDMOD
+;===============================================================================
+;===============================================================================
+              END

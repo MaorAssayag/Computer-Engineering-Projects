@@ -1,0 +1,81 @@
+#include  <msp430xG46x.h>
+           
+;Delay  MACRO
+Delay      MACRO  Num
+           LOCAL  L1
+           mov.w  Num,R13
+L1         dec    R13
+           jnz    L1
+           ENDM
+           
+;AngleInVoltage  MACRO      
+AngleInVoltage MACRO  Num ;get Voltage, Return the Angle ratio to Voltage
+               LOCAL  L1
+           mov.w  #10,R11
+           mov.w  Num,R14           
+L1         add.w #1,R13
+           sub.w R11,R14
+           cmp.w #0,R14
+           jge  L1
+           ENDM            
+           
+;===============================================================================              
+; Function 2
+;===============================================================================    
+            MODULE    Function2
+            PUBLIC    Function2
+            EXTERN FuncPrint
+            RSEG CODE               
+Function2  
+           mov #2,R10
+           call #FuncPrint 
+           call #SampleADC
+           ret                      
+;===============================================================================              
+; SampleADC
+;===============================================================================    
+            PUBLIC    SampleADC
+            EXTERN Spin
+            RSEG CODE               
+SampleADC  
+           bis.w #ADC12SC,&ADC12CTL0 ; Start sampling/conversion 
+           Delay #30000
+           mov.w &ADC12MEM3,R9
+           AngleInVoltage R9    ;return angle in R13           
+           call  #Correction    ;correct the angle~Voltage Ratio
+           mov.w  R13,R4        ;mov the angle to R4
+           mov.w  #1,R14
+           call #FuncPrint ;print Spining
+           call #Spin
+           mov.w #5,R7      ;print done :)!
+           call #FuncPrint   
+           Delay  #60000    ;the user can see "done"
+           Delay  #60000
+           ret             
+ ;===============================================================================              
+; Correction the angle~voltage Ratio
+;===============================================================================                 
+Correction 
+           cmp.w  #100,R13
+           jn Continue
+           sub.w #3,R13
+           cmp.w  #175,R13
+           jn Continue
+           sub.w #4,R13
+           cmp.w  #230,R13
+           jn Continue
+           sub.w #7,R13
+           cmp.w  #270,R13
+           jn Continue
+           sub.w #10,R13
+           cmp.w  #305,R13
+           jn Continue
+           add.w #6,R13
+           cmp.w  #340,R13
+           jn Continue
+           add.w #2,R13          
+Continue   ret                   
+;===============================================================================
+;===============================================================================
+              ENDMOD
+              END

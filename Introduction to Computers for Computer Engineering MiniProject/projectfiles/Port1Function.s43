@@ -1,0 +1,175 @@
+#include  <msp430xG46x.h>
+         ORG 1100h
+Line1    DC16 'W','e','l','l','c','o','m','e',' ',':',')',0 ; wellcome :)
+Line2    DC16 'P','r','e','s','s',' ','A',' ','t','o',' ','D','o','w','n',0; A scroll down
+Line3    DC16 'P','r','e','s','s',' ','B',' ','t','o',' ','U','p',0; A scroll down
+Line4    DC16 '1','.',' ','S','p','i','n',' ','b','y',' ','a','n','g','l','e',0; 1. Spin by angle
+Line5    DC16 '2','.',' ','S','p','i','n',' ','b','y',' ','v','o','l','t',0; 2. Spin by voltage
+Line6    DC16 '3','.',' ','C','l','o','c','k',' ','m','o','d','e',0 ;3. Clock mode
+Line7    DC16 'E','r','r','o','r','!',0 ;Error
+Line8    DC16 'P','u','t',' ','a','n','g','l','e',':',0 ;put angle F1
+Line9    DC16 'P','u','t',' ','V','o','l','t','a','g','e',':',0 ;put Voltage F2
+Line10   DC16 'D','o','n','e',' ',':',')','!',0 ;put Voltage F2
+Line11   DC16 'C','l','o','c','k',' ','E','n','a','b''l','e',0 ;Clock Enable
+Line12   DC16 'T','i','k','.','.','T','o','k','.','.',0 ;Clock Enable
+Line13   DC16 'S','p','i','n','n','i','n','g',' ','^','_','^',0 ;Clock Enable
+Line14   DC16 'P','l','e','a','s','e',' ','W','a','i','t',0 ;Clock Enable
+;*********MACRO FUNCTIONS******************************************************
+;******************************************************************************
+; Lcd_cmd MACRO
+Lcd_cmd   MACRO command
+          Delay #5000  ; 5msec Delay
+          mov.b command,&P5OUT
+          call #Lcd_strobe
+          ENDM  
+          
+; Lcd_Data MACRO
+Lcd_Data    MACRO Char
+            Delay #0005000
+            bic.b #0xff,&P5OUT
+            bis.b #0x20,&P3OUT
+            mov.b Char,&P5OUT
+            call  #Lcd_strobe
+            bic.b #0x20,&P3OUT
+            ENDM
+           
+; ExtraDelay MACRO
+ExtraDelay MACRO  Num1
+           LOCAL  L2,L3
+           clr R7
+           mov.w  Num1,R7
+L2         mov.w  #35,R13     ;1msec for each 1 value, for dutycycle
+L3         dec    R13
+           jnz    L3
+           dec    R7
+           cmp  #0,R7
+           jnz L2
+           ENDM      
+
+; LineLcd  MACRO
+LineLcd    MACRO  Line
+           LOCAL  newChar,exitLineLcd
+           clr R7
+           mov    #Line,R7
+newChar    mov.b   @R7,R6
+           cmp.b  #0,R6
+           jz     exitLineLcd
+           Lcd_Data R6
+           incd R7
+           jmp newChar
+exitLineLcd            
+           ENDM 
+           
+;Delay  MACRO
+Delay      MACRO  Num
+           LOCAL  L1
+           mov.w  Num,R13
+L1         dec    R13
+           jnz    L1
+           ENDM            
+ ;===============================================================================              
+; P1.0 Starting Menu 
+;===============================================================================          
+            MODULE    Starting
+            PUBLIC    Starting
+            EXTERN Lcd_strobe
+            RSEG CODE         
+
+Starting   LineLcd Line1
+           ExtraDelay #10000 ; wait 2 sec to show wellcome           
+           Lcd_cmd #0x01
+           LineLcd Line2
+           Lcd_cmd #0xC0
+           LineLcd Line3
+           Lcd_cmd #0x0C
+           mov #1,R8   ; Move Menu
+           ret              
+;===============================================================================              
+; P1.0 Moving Menu 
+;===============================================================================
+            PUBLIC    MovingMenu
+            RSEG CODE
+            
+MovingMenu Lcd_cmd #0x01   
+           cmp.b #2,R8
+           jnz  Lines23
+           LineLcd Line4
+           Lcd_cmd #0xC0
+           LineLcd Line5
+           jmp exitMoving
+           
+Lines23    cmp.b #3,R8
+           jnz  Lines31
+           LineLcd Line5
+           Lcd_cmd #0xC0
+           LineLcd Line6
+           jmp exitMoving           
+Lines31    LineLcd Line6
+           Lcd_cmd #0xC0
+           LineLcd Line4
+                    
+exitMoving   Lcd_cmd #0x0C
+             ret   
+ ;===============================================================================              
+; P1.0 Error
+;===============================================================================
+            PUBLIC    Error
+            RSEG CODE
+
+Error      Lcd_cmd #0x01              
+           LineLcd Line7
+           ExtraDelay #10000         
+           Lcd_cmd #0x01 
+           call #MovingMenu
+           clr R4
+           ret           
+
+  ;===============================================================================              
+; FuncPrint
+;===============================================================================          
+            PUBLIC    FuncPrint
+            RSEG CODE
+
+FuncPrint  
+           cmp.w  #1,R14
+           jnz  Wait
+           Lcd_cmd #0xC0
+           LineLcd Line13
+           jmp exitFuncPrint
+           
+Wait       cmp.w  #2,R14
+           jnz  Func1
+           Lcd_cmd #0x01
+           LineLcd Line14
+           jmp exitFuncPrint
+           
+Func1      cmp.b #1,R10
+           jnz  Func2
+           Lcd_cmd #0x01              
+           LineLcd Line8
+           jmp exitFuncPrint
+           
+Func2      cmp.b #2,R10
+           jnz  Func2Extra
+           Lcd_cmd #0x01              
+           LineLcd Line9
+           jmp exitFuncPrint
+           
+Func2Extra cmp.b #5,R7
+           jnz  Func3
+           Lcd_cmd #0x01              
+           LineLcd Line10
+           jmp exitFuncPrint           
+                      
+Func3      cmp.b #3,R10
+           jnz  exitFuncPrint
+           Lcd_cmd #0x01              
+           LineLcd Line11
+           Lcd_cmd #0xC0
+           LineLcd Line12
+           
+exitFuncPrint  
+                ret                 
+;===============================================================================
+;===============================================================================
+            END

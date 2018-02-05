@@ -1,0 +1,148 @@
+#include  <msp430xG46x.h>
+;******************************************************************************
+;******************************************************************************            
+        NAME   RESET
+        PUBLIC RESET
+        EXTERN KeyBoard
+        EXTERN Starting 
+        EXTERN ActivateLCD
+        EXTERN Spin
+        EXTERN BackSpin
+        EXTERN Function2
+        EXTERN FuncPrint
+        EXTERN BackSpinClock        
+        EXTERN Function3
+        EXTERN AfterF3
+        EXTERN CheckF1
+        EXTERN CheckKey
+        RSEG    CSTACK                  
+        RSEG    CODE                    
+;******************************************************************************
+;******************************************************************************
+RESET       mov.w   #SFE(CSTACK),SP          
+StopWDT     mov.w   #WDTPW+WDTHOLD,&WDTCTL  
+                                                    
+Main        clr R7  ;ExtraDelay
+            clr R9   ;BackSpin Register, Multi10
+            clr R6
+            clr R10
+            clr R11
+            clr R15 ;for clock correction
+            clr R4
+            clr R14 ;for stepNum macro
+            clr R13 ;for  Delay macro
+            mov #1,R8   ; Move Menu         
+            
+SetupBT     mov.b #BTDIV+BT_fCLK2_DIV128,&BTCTL ; ACLK/(256*128)            
+                       
+SetupP10    bis.b #0x0f,&P10DIR ;set 10.0 - 10.3 to Output //setup kryboard
+            bic.b #0xf0,&P10DIR ;set 10.4 - 10.7 to Input
+            bic.b #0xff,&P10OUT ;clear P10 out
+
+SetupP1     bic.b   #3,&P1SEL     
+            bic.b   #3,&P1DIR
+            bis.b   #3,&P1IES
+            bis.b   #3,&P1IE
+            bic.b   #0x03,&P1IFG  ; reset of interrupt flag
+            
+SetupP2     bic.b   #1,&P2SEL     
+            bic.b   #1,&P2DIR
+            bis.b   #1,&P2IES
+            bis.b   #1,&P2IE
+            bic.b   #0x01,&P2IFG  ; reset of interrupt flag           
+            
+BuffEn      bis.b #0x40,&P7DIR ; P7.6 output = #0x40 -->M(P7DIR)
+            bis.b #0x40,&P7OUT ; P7.6=1 - #0x40 -->M(P7OUT)
+            bis.b #0xff,&P9DIR ; Set P9 as Output
+            bic.b #0xff,&P9OUT 
+            
+SetupADC12  mov.w #SHT0_2+MSC+ADC12ON,&ADC12CTL0
+            mov.w #SHP+CSTARTADD_3,&ADC12CTL1
+            mov.b #INCH_3,&ADC12MCTL3 ;Analog input is A3, VR+=3.3v VR-=0v
+            mov.w #0x08,&ADC12IE ; Enable interrupt
+            bis.w #ENC,&ADC12CTL0
+            bis.b #0x08,&P6SEL ; P6.3 ADC option select
+            bis.w #ENC,&ADC12CTL0
+                   
+            bis.w   #CPUOFF+GIE,SR ; enter sleep mode
+            NOP
+;******************************************************************************
+;*******************Interrupts************************************************* ;
+; PORT1 Interrupt 
+PORT1_ISR  bit.b #0x01,&P1IFG ;check if p1.0 is pressed
+           jz CheckP11
+           bic.w   #CPUOFF+GIE,SR 
+           call #ActivateLCD  
+           
+func3      cmp.b #3,R10
+           jnz BackSpinA 
+           call  #AfterF3 
+           jmp Continue
+BackSpinA  cmp.w #0,R9      ;return the angle to 0
+           jz  Continue
+           mov.w  #2,R14
+           call #FuncPrint ;print Please Wait
+           call #BackSpin  
+           
+Continue   call #Starting   ;starting menu 
+           jmp  exitP1
+           
+CheckP11   bit.b #0x02,&P1IFG 
+           jz exitP1
+           call #ActivateLCD
+           bis.w   #CPUOFF+GIE,SR
+        
+exitP1     bic.b   #0x03,&P1IFG 
+           reti           
+;*********************************************************
+;*********************************************************
+; PORT2 Interrupt 
+PORT2_ISR   call #KeyBoard
+            bic.b #0xff,&P10OUT
+
+F3          cmp.b #3,R10
+            jnz BackSpinAngle 
+            call  #AfterF3
+            jmp StartCheckKey
+            
+BackSpinAngle   cmp.w #0,R9      ;return the angle to 0
+                jz  F1
+                mov.w  #2,R14
+                call #FuncPrint ;print Please Wait
+                call #BackSpin
+                       
+F1          cmp.b #1,R10
+            jnz StartCheckKey            
+            call  #CheckF1
+            jmp ExitP2
+
+StartCheckKey   call  #CheckKey
+ExitP2          bic.b #0x01,&P2IFG
+                reti             
+;*********************************************************
+;*********************************************************
+; Basic Timer Interrupt 
+Basic_Timer_ISR ; Basic Timer Interrupt Service Routine
+                mov.w #6,R4                             
+                add.w #1,R15
+                
+                cmp.w #57,R15 ;each angle is 6.3
+                jn Cont
+                mov.w #0,R15  
+                
+Cont            call  #Spin
+                reti
+;*********************************************************
+;*********************************************************
+;------------------------------------------------------------------------------
+            COMMON  INTVEC                  ; Interrupt Vectors-Begins a common segment with name of INTVEC 
+;------------------------------------------------------------------------------
+            ORG     PORT1_VECTOR            ;PORT1 Interrupt Vector
+            DW      PORT1_ISR
+            ORG     PORT2_VECTOR            ;PORT1 Interrupt Vector
+            DW      PORT2_ISR
+            ORG     RESET_VECTOR            ; MSP430 RESET Vector
+            DW      RESET 
+            ORG BASICTIMER_VECTOR
+            DW Basic_Timer_ISR
+            END
