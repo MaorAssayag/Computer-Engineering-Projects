@@ -1,7 +1,7 @@
 ![alt text](https://github.com/MaorAssayag/Digital-Computer-Structure-projects/blob/master/Autonomous%20Vehicle%20Project/vehicle.PNG)
 # Digital Computer Structure for Computer Engineering
 
-# Subjects :
+# Topics :
 * Computer Structure: the digital computer and its main components, different bus configurations
 and bus arbitration methods.
 * Microprocessor Architecture: Von-Neuman, Harvard, programming model and CPU model, 3-bus architecture, pipeline architecture, 80x86 arcitecture, TI/ARM
