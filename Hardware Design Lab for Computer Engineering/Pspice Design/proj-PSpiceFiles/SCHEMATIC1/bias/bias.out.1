@@ -1,0 +1,52 @@
+
+**** 01/09/18 22:03:40 ****** PSpice 17.2.0 (March 2016) ****** ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-bias"  [ C:\Users\maoryak\Desktop\pro\proj-pspicefiles\schematic1\bias.sim ] 
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+** Creating circuit file "bias.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+* From [PSPICE NETLIST] section of C:\cdssetup\OrCAD_PSpice\17.2.0\PSpice.ini file:
+.lib "nom.lib" 
+
+*Analysis directives: 
+.TRAN  0 3s 0 
+.OPTIONS ADVCONV
+.PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+
+**** INCLUDING SCHEMATIC1.net ****
+* source PROJ
+R_R_var         N15705 VCC_REF {1.5k*0.5+.001}
+X_U1B         N19455 N15705 VCC_REF 0 0 LM324
+V_V1         VCC_REF 0 5
+R_R6         0 N15705  0.5k TC=0,0 
+X_U2B         N15797 N15705 VCC_REF 0 0 LM324
+R_LDR1         N19455 0 {2k*0.5+.001}
+R_R7         VCC_REF N19455  1k TC=0,0 
+R_LDR2         N15797 0 {200*0.5+.001}
+R_R8         VCC_REF N15797  1k TC=0,0 
+X_Q3         VCC_REF N258681 0 awb2n2222a PARAMS:                              
++               
+R_R10         VCC_REF N258681  400 TC=0,0 
+R_R12         0 N26051  400 TC=0,0 
+
+**** RESUMING bias.cir ****
+.END
+
+ERROR(ORPSIM-15141): Less than 2 connections at node N26051.
+

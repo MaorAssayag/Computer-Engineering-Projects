@@ -1,0 +1,23 @@
+* source PROJ
+R_R_var         N15705 VCC_REF {1.5k*0.5+.001}
+X_U1B         N19455 N15705 VCC_REF 0 N28984 LM324
+V_V1         VCC_REF 0 5
+R_R6         0 N15705  0.5k TC=0,0 
+X_U2B         N15797 N15705 VCC_REF 0 N28868 LM324
+R_LDR1         N19455 0 {2k*0.5+.001}
+R_R7         VCC_REF N19455  1k TC=0,0 
+R_LDR2         N15797 0 {200*0.5+.001}
+R_R8         VCC_REF N15797  1k TC=0,0 
+X_U3A         N28984 N28984 N29410 $G_DPWR $G_DGND 7432 PARAMS:
++ IO_LEVEL=0 MNTYMXDLY=0
+X_U3B         N28868 N28868 N29414 $G_DPWR $G_DGND 7432 PARAMS:
++ IO_LEVEL=0 MNTYMXDLY=0
+X_Q1         N29671 N292801 0 awb2n2222a PARAMS:                               
++              
+X_Q2         N29629 N293241 0 awb2n2222a PARAMS:                               
++              
+R_R9         N29410 N292801  1k TC=0,0 
+R_R10         N29414 N293241  1k TC=0,0 
+R_R11         N29671 VCC_REF  100 TC=0,0 
+R_R12         N29629 VCC_REF  100 TC=0,0 
+R_R13         N29629 N29671  100 TC=0,0 
