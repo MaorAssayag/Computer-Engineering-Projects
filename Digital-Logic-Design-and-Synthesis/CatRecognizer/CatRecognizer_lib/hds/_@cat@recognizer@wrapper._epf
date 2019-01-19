@@ -1,0 +1,2 @@
+DEFAULT_ARCHITECTURE atom CatRecognizerWrapper
+DEFAULT_FILE atom CatRecognizerWrapper.v

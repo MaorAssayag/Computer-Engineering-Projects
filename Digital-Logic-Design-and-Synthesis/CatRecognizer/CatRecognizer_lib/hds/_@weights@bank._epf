@@ -1,0 +1,2 @@
+DEFAULT_ARCHITECTURE atom WeightsBank
+DEFAULT_FILE atom WeightsBank.v

@@ -1,0 +1,2 @@
+DEFAULT_ARCHITECTURE atom Accumulator
+DEFAULT_FILE atom Accumulator.v

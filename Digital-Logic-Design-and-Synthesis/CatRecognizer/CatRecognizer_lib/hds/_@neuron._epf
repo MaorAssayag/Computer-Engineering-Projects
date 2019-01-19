@@ -1,0 +1,2 @@
+DEFAULT_ARCHITECTURE atom Neuron
+DEFAULT_FILE atom Neuron.v

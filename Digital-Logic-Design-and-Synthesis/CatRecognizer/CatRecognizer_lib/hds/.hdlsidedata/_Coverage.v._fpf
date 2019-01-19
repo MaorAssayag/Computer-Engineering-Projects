@@ -1,0 +1,4 @@
+DIALECT atom SYSTEM_VERILOG_2002
+INCLUDE list {
+ DEFAULT atom 1
+}

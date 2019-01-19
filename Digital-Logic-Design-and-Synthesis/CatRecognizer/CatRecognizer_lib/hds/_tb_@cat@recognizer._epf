@@ -1,0 +1,2 @@
+DEFAULT_ARCHITECTURE atom tb_CatRecognizer
+DEFAULT_FILE atom tb_CatRecognizer.v

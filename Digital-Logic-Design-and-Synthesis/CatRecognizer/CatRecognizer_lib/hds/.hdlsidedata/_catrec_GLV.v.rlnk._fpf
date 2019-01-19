@@ -1,0 +1,5 @@
+TYPE atom VERILOG_GATE_TEXT
+TOP_ENTITY atom CatRecognizer
+INCLUDE list {
+ DEFAULT atom 1
+}

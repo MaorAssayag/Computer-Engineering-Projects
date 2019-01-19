@@ -1,0 +1,82 @@
+# vsim -f hds_args.tmp -foreign "hdsInit C:/MentorGraphics/HDS_2012.1/resources/downstream/modelsim/ModelSim_64Bit.dll" -pli ""C:/MentorGraphics/HDS_2012.1/resources/downstream/modelsim/ModelSim_64Bit.dll"" 
+# Start time: 21:10:59 on Jan 06,2019
+# ** Note: (vsim-3812) Design is being optimized...
+# 
+# ** Note: (vsim-3865) Due to PLI being present, full design access is being specified.
+# 
+# ** Error (suppressible): (vopt-19) Failed to access library 'CatRecgonizer_lib' at "CatRecgonizer_lib".
+# 
+# No such file or directory. (errno = ENOENT)
+# ** Error (suppressible): (vopt-19) Failed to access library 'CatRecgonizer_lib' at "CatRecgonizer_lib".
+# 
+# No such file or directory. (errno = ENOENT)
+# ** Warning: C:/Users/MaorA/Desktop/CatRecognizer/CatRecognizer/CatRecognizer_lib/hdl/Allimages_tb.v(1): (vopt-2669) Unable to find library 'CatRecgonizer_lib'.
+# 
+# ** Error (suppressible): (vopt-19) Failed to access library 'CatRecgonizer_lib' at "CatRecgonizer_lib".
+# 
+# No such file or directory. (errno = ENOENT)
+# ** Error (suppressible): (vopt-19) Failed to access library 'CatRecgonizer_lib' at "CatRecgonizer_lib".
+# 
+# No such file or directory. (errno = ENOENT)
+# ** Warning: C:/Users/MaorA/Desktop/CatRecognizer/CatRecognizer/CatRecognizer_lib/hdl/CatRecognizer.v(1): (vopt-2669) Unable to find library 'CatRecgonizer_lib'.
+# 
+# ** Error (suppressible): (vopt-19) Failed to access library 'CatRecgonizer_lib' at "CatRecgonizer_lib".
+# 
+# No such file or directory. (errno = ENOENT)
+# ** Error (suppressible): (vopt-19) Failed to access library 'CatRecgonizer_lib' at "CatRecgonizer_lib".
+# 
+# No such file or directory. (errno = ENOENT)
+# ** Warning: C:/Users/MaorA/Desktop/CatRecognizer/CatRecognizer/CatRecognizer_lib/hdl/APB.v(1): (vopt-2669) Unable to find library 'CatRecgonizer_lib'.
+# 
+# ** Error (suppressible): (vopt-19) Failed to access library 'CatRecgonizer_lib' at "CatRecgonizer_lib".
+# 
+# No such file or directory. (errno = ENOENT)
+# ** Error (suppressible): (vopt-19) Failed to access library 'CatRecgonizer_lib' at "CatRecgonizer_lib".
+# 
+# No such file or directory. (errno = ENOENT)
+# ** Warning: C:/Users/MaorA/Desktop/CatRecognizer/CatRecognizer/CatRecognizer_lib/hdl/WeightsBank.v(1): (vopt-2669) Unable to find library 'CatRecgonizer_lib'.
+# 
+# ** Error (suppressible): (vopt-19) Failed to access library 'CatRecgonizer_lib' at "CatRecgonizer_lib".
+# 
+# No such file or directory. (errno = ENOENT)
+# ** Error (suppressible): (vopt-19) Failed to access library 'CatRecgonizer_lib' at "CatRecgonizer_lib".
+# 
+# No such file or directory. (errno = ENOENT)
+# ** Warning: C:/Users/MaorA/Desktop/CatRecognizer/CatRecognizer/CatRecognizer_lib/hdl/Neuron.v(1): (vopt-2669) Unable to find library 'CatRecgonizer_lib'.
+# 
+# ** Error (suppressible): (vopt-19) Failed to access library 'CatRecgonizer_lib' at "CatRecgonizer_lib".
+# 
+# No such file or directory. (errno = ENOENT)
+# ** Error (suppressible): (vopt-19) Failed to access library 'CatRecgonizer_lib' at "CatRecgonizer_lib".
+# 
+# No such file or directory. (errno = ENOENT)
+# ** Warning: C:/Users/MaorA/Desktop/CatRecognizer/CatRecognizer/CatRecognizer_lib/hdl/Neuron.v(1): (vopt-2669) Unable to find library 'CatRecgonizer_lib'.
+# 
+# ** Error (suppressible): (vopt-19) Failed to access library 'CatRecgonizer_lib' at "CatRecgonizer_lib".
+# 
+# No such file or directory. (errno = ENOENT)
+# ** Error (suppressible): (vopt-19) Failed to access library 'CatRecgonizer_lib' at "CatRecgonizer_lib".
+# 
+# No such file or directory. (errno = ENOENT)
+# ** Warning: C:/Users/MaorA/Desktop/CatRecognizer/CatRecognizer/CatRecognizer_lib/hdl/Neuron.v(1): (vopt-2669) Unable to find library 'CatRecgonizer_lib'.
+# 
+# Optimization failed
+# Error loading design
+# End time: 21:10:59 on Jan 06,2019, Elapsed time: 0:00:00
+# Errors: 14, Warnings: 7
+# hds_start \$HDS_PROJECT_DIR/CatRecognizer_lib/work
+# reading modelsim.ini
+vsim -L CatRecognizer_lib -l transcript.txt -i -t ns -multisource_delay latest +typdelays CatRecognizer_lib.Allimages_tb
+# vsim -L CatRecognizer_lib -l transcript.txt -i -t ns -multisource_delay latest "+typdelays" CatRecognizer_lib.Allimages_tb -foreign "hdsInit C:/MentorGraphics/HDS_2012.1/resources/downstream/modelsim/ModelSim_64Bit.dll" -pli ""C:/MentorGraphics/HDS_2012.1/resources/downstream/modelsim/ModelSim_64Bit.dll"" 
+# Start time: 21:11:38 on Jan 06,2019
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# 
+# Loading work.Allimages_tb(fast)
+# Loading work.CatRecognizer(fast)
+# Loading work.APB(fast)
+# Loading work.WeightsBank(fast)
+# Loading work.Neuron(fast)
+# Loading work.Accumulator(fast)
+# Loading C:/MentorGraphics/HDS_2012.1/resources/downstream/modelsim/ModelSim_64Bit.dll
+# End time: 21:11:43 on Jan 06,2019, Elapsed time: 0:00:05
+# Errors: 0, Warnings: 0

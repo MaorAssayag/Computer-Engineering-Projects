@@ -1,0 +1,53 @@
+****************************************
+Report : power
+        -analysis_effort low
+Design : CatRecognizer
+Version: J-2014.09-SP2
+Date   : Mon Dec 31 18:20:37 2018
+****************************************
+
+
+Library(s) Used:
+
+    slow (File: /users/agnon/year2016/maoryak/lab3/LibraryFiles/db/slow.db)
+
+
+Operating Conditions: slow   Library: slow
+Wire Load Model Mode: top
+
+Design        Wire Load Model            Library
+------------------------------------------------
+CatRecognizer          tsmc18_wl50       slow
+
+
+Global Operating Voltage = 1.62
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1pW
+
+
+  Cell Internal Power  =  85.5021 mW   (31%)
+  Net Switching Power  = 192.3105 mW   (69%)
+                         ---------
+Total Dynamic Power    = 277.8125 mW  (100%)
+
+Cell Leakage Power     = 365.0787 uW
+
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
+clock_network     16.6708          181.5567        2.1429e+07          198.2604  (  71.26%)
+register          68.5826        3.3345e-02        2.9021e+08           68.8996  (  24.76%)
+sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
+combinational      0.2855           10.7244        5.3443e+07           11.0652  (   3.98%)
+--------------------------------------------------------------------------------------------------
+Total             85.5389 mW       192.3145 mW     3.6508e+08 pW       278.2253 mW
+1
+dc_shell>

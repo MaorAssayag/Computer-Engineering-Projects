@@ -1,0 +1,2 @@
+DEFAULT_ARCHITECTURE atom Allimages_tb
+DEFAULT_FILE atom Allimages_tb.v

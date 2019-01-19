@@ -1,0 +1,185 @@
+****************************************
+Report : power
+        -analysis_effort low
+Design : CatRecognizer
+Version: J-2014.09-SP2
+Date   : Mon Dec 31 13:12:03 2018
+****************************************
+
+
+Library(s) Used:
+
+    slow (File: /users/agnon/year2016/maoryak/lab3/LibraryFiles/db/slow.db)
+
+
+Operating Conditions: slow   Library: slow
+Wire Load Model Mode: top
+
+Design        Wire Load Model            Library
+------------------------------------------------
+CatRecognizer          tsmc18_wl50       slow
+
+
+Global Operating Voltage = 1.62
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1pW
+
+
+  Cell Internal Power  =  93.9723 mW   (32%)
+  Net Switching Power  = 203.8810 mW   (68%)
+                         ---------
+Total Dynamic Power    = 297.8532 mW  (100%)
+
+Cell Leakage Power     = 484.5714 uW
+
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
+clock_network     16.5360          178.2366        2.1439e+07          194.7769  (  65.29%)
+register          77.1716        3.3529e-02        2.7118e+08           77.4733  (  25.97%)
+sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
+combinational      0.2978           25.6004        1.9195e+08           26.0920  (   8.75%)
+--------------------------------------------------------------------------------------------------
+Total             94.0054 mW       203.8705 mW     4.8457e+08 pW       298.3423 mW
+
+****************************************
+Report : constraint
+        -all_violators
+Design : CatRecognizer
+Version: J-2014.09-SP2
+Date   : Mon Dec 31 13:12:04 2018
+****************************************
+
+
+   max_area
+
+                             Required        Actual
+   Design                      Area           Area           Slack
+   -----------------------------------------------------------------
+   CatRecognizer                0.00       193547504.00   -193547504.00
+                                                                    (VIOLATED)
+
+
+
+****************************************
+Report : area
+Design : CatRecognizer
+Version: J-2014.09-SP2
+Date   : Mon Dec 31 13:12:08 2018
+****************************************
+
+Library(s) Used:
+
+    slow (File: /users/agnon/year2016/maoryak/lab3/LibraryFiles/db/slow.db)
+
+Number of ports:                           67
+Number of nets:                           845
+Number of cells:                          491
+Number of combinational cells:            221
+Number of sequential cells:               254
+Number of macros/black boxes:               0
+Number of buf/inv:                        124
+Number of references:                      70
+
+Combinational area:            4014376.029803
+Buf/Inv area:                   214915.384479
+Noncombinational area:         9004701.336320
+Macro/Black Box area:                0.000000
+Net Interconnect area:       180528427.545090
+
+Total cell area:              13019077.366123
+Total area:                  193547504.911212
+
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : CatRecognizer
+Version: J-2014.09-SP2
+Date   : Mon Dec 31 13:12:08 2018
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: slow   Library: slow
+Wire Load Model Mode: top
+
+  Startpoint: rst (input port clocked by my_clk)
+  Endpoint: clk_gate_APB_control_reg/latch
+            (negative level-sensitive latch clocked by my_clk)
+  Path Group: my_clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  CatRecognizer      tsmc18_wl50           slow
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock my_clk (rise edge)                                0.00       0.00
+  clock network delay (ideal)                             1.00       1.00
+  input external delay                                   27.45      28.45 r
+  rst (in)                                                0.00      28.45 r
+  U302/Y (CLKINVX3)                                       1.08      29.53 f
+  U297/Y (OAI21X4)                                        0.64      30.17 r
+  U280/Y (OR2X4)                                          0.31      30.48 r
+  clk_gate_APB_control_reg/EN (SNPS_CLOCK_GATE_HIGH_CatRecognizer_6)
+                                                          0.00      30.48 r
+  clk_gate_APB_control_reg/latch/D (TLATNX4)              0.00      30.48 r
+  data arrival time                                                 30.48
+
+  clock my_clk (fall edge)                               15.00      15.00
+  clock network delay (ideal)                             1.00      16.00
+  clock uncertainty                                      -0.15      15.85
+  clk_gate_APB_control_reg/latch/GN (TLATNX4)             0.00      15.85 f
+  time borrowed from endpoint                            14.63      30.48
+  data required time                                                30.48
+  --------------------------------------------------------------------------
+  data required time                                                30.48
+  data arrival time                                                -30.48
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+  Time Borrowing Information
+  --------------------------------------------------------------
+  my_clk nominal pulse width                             15.00
+  library setup time                                     -0.10
+  --------------------------------------------------------------
+  max time borrow                                        14.90
+  --------------------------------------------------------------
+  actual time borrow                                     14.63
+  clock uncertainty                                      -0.15
+  --------------------------------------------------------------
+  time given to startpoint                               14.48
+  --------------------------------------------------------------
+
+
+Writing ddc file 'mapped/catrec.ddc'.
+Writing verilog file '/users/agnon/year2016/maoryak/lab3/cat/mapped/catrec_GLV.v'.
+Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)
+Warning: Verilog writer has added 13 nets to module CatRecognizer using SYNOPSYS_UNCONNECTED_ as prefix.  Please use the change_names command to make the correct changes before invoking the verilog writer.  (VO-11)
+Information: Annotated 'cell' delays are assumed to include load delay. (UID-282)
+Information: Writing timing information to file '/users/agnon/year2016/maoryak/lab3/cat/mapped/catrec.sdf'. (WT-3)
+1
+dc_shell> link
+
+  Linking design 'CatRecognizer'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  * (8212 designs)            /users/agnon/year2016/maoryak/lab3/cat/rtl/CatRecognizer.db, etc
+  slow (library)              /users/agnon/year2016/maoryak/lab3/LibraryFiles/db/slow.db
+  * (2 designs)               /users/agnon/year2016/maoryak/lab3/cat/rtl/APB.db, etc
+  dw_foundation.sldb (library)
+                              /usr/local/synopsys/2014-15/RHELx86/SYN_2014.09-SP2/libraries/syn/dw_foundation.sldb
+
+1
+dc_shell>

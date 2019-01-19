@@ -1,0 +1,2 @@
+DEFAULT_ARCHITECTURE atom CatRecognizer
+DEFAULT_FILE atom CatRecognizer.v

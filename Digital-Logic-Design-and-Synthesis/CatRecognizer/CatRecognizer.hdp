@@ -1,0 +1,23 @@
+[DesignChecker]
+CatRecognizer_lib = $HDS_PROJECT_DIR/CatRecognizer_lib/designcheck
+[QuestaSim]
+CatRecognizer_lib = $HDS_PROJECT_DIR/CatRecognizer_lib/work
+tsmc = $HDS_PROJECT_DIR\tsmc\work
+[hdl]
+CatRecognizer_lib = $HDS_PROJECT_DIR/CatRecognizer_lib/hdl
+tsmc = $HDS_PROJECT_DIR\tsmc\hdl
+[hds]
+CatRecognizer_lib = $HDS_PROJECT_DIR/CatRecognizer_lib/hds
+tsmc = $HDS_PROJECT_DIR\tsmc\hds
+[hds_settings]
+default_library = CatRecognizer_lib
+design_root = CatRecognizer_lib.Allimages_tb(Allimages_tb)Allimages_tb.v
+version = 2
+[library_files_inclusion]
+CatRecognizer_lib = specify
+tsmc = all
+[library_type]
+CatRecognizer_lib = regular
+tsmc = regular
+[shared]
+others = $HDS_TEAM_HOME/shared.hdp

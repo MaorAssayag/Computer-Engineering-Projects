@@ -1,0 +1,140 @@
+// ====================================================================
+//	File Name: Allimages_tb.v
+//	Description: Simulate a CPU. First extract the correct answears from a text file, then send
+//              an image and check the output of CatRecognizer. This test bench cover all provided
+//              images. ON MODELSIM : 5000 us
+//
+// Parameters : WeightPrecision = 5/8/16
+//              Amba_Addr_Depth = 12/13/14
+//              WeightRowWidth = WeightPrecision * 3 = 15/24/48
+//
+//	Date: 28/11/2018
+//	Designers: Maor Assayag, Refael Shetrit
+// using Mentor Graphics HDL Designer(TM) 2012.1 (Build 6)
+// ====================================================================
+`resetall
+`timescale 1ns/1ns
+`include "Parameters.v"
+module Allimages_tb ;
+
+  // LOCAL VARS
+  integer   fd;
+  integer i = 0;
+  integer j = 1;
+  integer flag = 0;
+  integer tmp1, tmp2;
+  integer imageNumber = 0;
+  integer resultThatTrue = 0;
+  reg [15:0] data;
+  reg [8*4:1] str;
+  reg [7:0] mem [12287:0];
+  reg CorrectResults [40:0];
+
+  //CatRecognize inputs/outputs
+  reg    clk;
+  reg    rst;
+  reg    PENABLE;
+  reg    PSEL;
+  reg    PWRITE;
+  reg  [`Amba_Word-1:0] APB_WriteData;
+  reg  [(`Amba_Addr_Depth):0] APB_address;
+  wire [`Amba_Word-1:0] APB_ReadData;
+  wire CatRecOut;
+
+// MODULES
+  CatRecognizer CatRecognizer_1(
+        .clk (clk),
+        .rst(rst),
+        .PENABLE(PENABLE),
+        .PSEL(PSEL),
+        .PWRITE(PWRITE),
+        .PADDR(APB_address),
+        .PWDATA(APB_WriteData),
+        .PRDATA(APB_ReadData),
+        .CatRecOut(CatRecOut));
+
+  // BODY
+ initial begin
+   //READ CORRECT ANSWEARS
+   fd = $fopen($sformatf("../TestBenchInputFiles/ResultsPrecision%0d.txt",`WeightPrecision),"r");
+   while (!$feof(fd)) begin
+     tmp1 = $fgets(str, fd);
+     tmp2 = $sscanf(str, "%d", data);
+     CorrectResults[i] = data;
+     i = i +1;
+   end
+   
+   //START WRITING IMAGES
+   while (imageNumber < 40) begin
+    fd = $fopen($sformatf("../TestBenchInputFiles/Image%0d.txt",imageNumber),"r");
+    clk = 0;
+    i = 0;
+    j = 0;
+    flag = 0;
+    data = 0;
+    tmp1 = 1;
+    #30 rst = 1'b1;
+    #90 rst = 0;
+    //insert Start_work = 0
+    PWRITE = 'b1;
+    PSEL = 'b1;
+    PENABLE = 'b0;
+    APB_address = 0;
+    APB_WriteData = {`Amba_Word{1'b0}};
+
+    // load pixels
+    while (!$feof(fd)) begin
+       tmp1 = $fgets(str, fd);
+       tmp2 = $sscanf(str, "%d", data);
+       mem[i] = data;
+       
+       if ((i>0) && ((i+1)%3==0)) begin
+         APB_address = (i+1)/3;
+         APB_WriteData = {mem[i-2],mem[i-1],mem[i]};
+       end
+
+       i=i+1;
+       if ($feof(fd)) begin
+         flag = 1; //end of this while
+       end
+       @(posedge PENABLE);
+    end
+  
+     //insert Start_work = 1
+    while (j < 4250) begin
+      if (flag == 1) begin
+        #30
+        PWRITE = 1'bz; 
+        #30
+        APB_address = 0;
+        APB_WriteData = {{(`Amba_Word-1){1'b0}},1'b1};
+        #15 PWRITE = 1'b1; 
+        #30 PWRITE = 1'bz;
+        flag = 0;
+      end
+      j = j+1;
+      @(posedge clk);
+    end
+    
+    // CHECK RESULT
+    if (CorrectResults[imageNumber] == CatRecOut) begin
+      $write ($sformatf("TestBench for image %0d : true, Correct Answer = %0d, CatRecgonizer = %0d \n", imageNumber,CorrectResults[imageNumber], CatRecOut)); 
+      resultThatTrue = resultThatTrue + 1;
+    end else begin
+      $write ($sformatf("TestBench for image %0d : false, Correct Answer = %0d, CatRecgonizer = %0d \n", imageNumber,CorrectResults[imageNumber], CatRecOut));
+    end
+    imageNumber = imageNumber + 1;
+  end // while images
+    
+    if (resultThatTrue == 1) begin
+      $write ("TestBench done successfuly, CatRecgonizer is accurate \n"); 
+      resultThatTrue = resultThatTrue + 1;
+    end else begin
+      $write ($sformatf("TestBench failed %0d from 40 images \n", 40-resultThatTrue));
+    end
+    $finish;
+ end // initial begin
+
+ always #15 clk = ~clk;
+ always #30 PENABLE = ~PENABLE;
+endmodule // stim_gen
